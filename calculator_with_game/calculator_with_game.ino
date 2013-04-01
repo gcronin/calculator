@@ -65,11 +65,11 @@ void setup()
 
 void loop()
 {
-  while(mode > 1)
+  while(mode > 1) //setup process:  Allow the user to chose Calculator Mode or Game Mode.  This only runs once at the beginning
   {
     if(millis() - lasttime > 1000) // do this only every 1000 milliseconds.
     {
-      if(toggle)
+      if(toggle)  // Display text "Mode"
       {
         lcd.setCursor(0,0);
         lcd.print("MODE?   ");
@@ -78,7 +78,7 @@ void loop()
         lasttime = millis();
         toggle = 1-toggle;
       }
-      else
+      else // Display text "A = Calc"  "B = Game"
       {
         lcd.setCursor(0,0);
         lcd.print("A = Calc");
@@ -152,7 +152,7 @@ void loop()
     }
     else if(key == 'D')  //enter
     { 
-      if(function > 4 && function < 9) //these functions require only one number
+      if(function > 4 && function < 9 || function == 10) //these functions require only one number
       {
         firstnumber = atof(input);  // convert input character array to a float
         numintototalarray();
@@ -364,8 +364,8 @@ void printoperation(int _function)
     case 9:
       break;
     case 10:
-      totalarray = totalarray + "?";
-      length = length + 1;
+      totalarray = "f(" + totalarray + ")= ";
+      length = length + 5;
       break;
     }
 }
@@ -406,7 +406,7 @@ float executefunction(int _function, float _firstnumber, float _secondnumber)
     case 9:
       break;
     case 10:
-      _output = 2*_firstnumber + _secondnumber/2;
+      _output = _firstnumber * _firstnumber - 1;
       break;
     }
     return _output;
