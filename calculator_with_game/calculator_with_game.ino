@@ -30,7 +30,7 @@ int lcdcolumnindexrow1 = 1; // used to indicate location of input key
 
 //FUNCTION VARIABLES//
 int function = 9;  //stores currently selected function
-const int number_of_functions = 11;
+const int number_of_functions = 10;
 int mode = 2; // select normal operation (1) or mystery function (0)
 bool toggle = 1;
 
