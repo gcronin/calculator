@@ -4,7 +4,7 @@
 #include <math.h>
 
 ///////////////////////////////////////////////////////VARIABLES///////////////////////////////////////////
-//VARIABLES TO PARSE FLOATING ANSWER INTO WHOLE NUMBER AND INTEGER PARTS///
+//VARIABLES TO PARSE FLOATING ANSWER INTO WHOLE NUMBER AND DECIMAL PARTS///
 char outresult[20];
 String OutResult;
 int decimal_location;
