@@ -33,6 +33,8 @@ int function = 9;  //stores currently selected function
 const int number_of_functions = 10;
 int mode = 2; // select normal operation (1) or mystery function (0)
 bool toggle = 1;
+int level = 0;  // stores level for the game
+const int number_of_levels = 10;
 
 ///////////////////////////////////////////////////////KEYPAD SETUP///////////////////////////////////////
 const byte ROWS = 4; // Four rows
@@ -99,8 +101,9 @@ void loop()
       if(key == 'B') 
       { 
         mode = 0;
-        function = 10;
+        function = 10; //required for game mode
         lcd.clear();
+        displaylevel(level);
        }  
     }
   }
@@ -124,7 +127,11 @@ void loop()
         function = mod(++function, number_of_functions);
         displayfunction(function);
       }
-      else {function = 10;}
+      else  
+      {
+        level = mod(++level, number_of_levels);
+        displaylevel(level);
+      }
     }
     else if(key == 'B') //decrement function
     {
@@ -133,7 +140,11 @@ void loop()
         function = mod(--function, number_of_functions);
         displayfunction(function);
       }
-      else {function = 10;}
+      else 
+      {
+        level = mod(--level, number_of_levels);
+        displaylevel(level);
+      }
     }
     else if(key == 'C')  //clear
     { 
@@ -157,7 +168,8 @@ void loop()
         firstnumber = atof(input);  // convert input character array to a float
         numintototalarray();
         printoperation(function);
-        response = executefunction(function, firstnumber, 1);  // do the math
+        if(mode) {response = executefunction(function, firstnumber, 1); }  // do the math
+        else {response = executegamefunction(level, firstnumber); }
         scroll1 = 1;  // display the input number and function on the top line
         lcd.setCursor(0,1);
         lcd.print("        ");  //clear line
@@ -234,6 +246,17 @@ void loop()
 int mod(int a, int b) 
 {
   return (((a % b) + b) % b);
+}
+
+////////////////////Function Displays Level for Game///////////////////////////////////////////
+void displaylevel(int _level)
+{
+  lcd.setCursor(0,1);
+  lcd.print("        ");  //clear line
+  lcd.setCursor(0,1);
+  String LevelNum = "Level ";
+  LevelNum = LevelNum + _level;
+  lcd.print(LevelNum);
 }
 
 //////////////////////Function Displays Math Functions/////////////////////////////////////////
@@ -368,6 +391,46 @@ void printoperation(int _function)
       length = length + 5;
       break;
     }
+}
+
+//////////////////////GAME MATH FUNCTIONS////////////////////////////////////////////
+float executegamefunction(int _level, float _firstnumber)
+{
+    float _output;
+    switch (_level) 
+    {
+    case 0: 
+      _output = _firstnumber + 1;
+      break;
+    case 1:
+      _output = 2*_firstnumber;
+      break;
+    case 2:
+      _output = _firstnumber*-1 + 2;
+      break;
+    case 3:
+      _output = _firstnumber*_firstnumber;
+      break;
+    case 4:
+      _output = _firstnumber/3;
+      break;
+    case 5:
+      _output = _firstnumber*3/2 + 5;
+      break;
+    case 6:
+      _output = _firstnumber + 2*_firstnumber;
+      break;
+    case 7:
+      if(_firstnumber!= 0) {_output = 1/firstnumber + firstnumber; }
+      break;
+    case 8:
+      _output = pow(_firstnumber, 3) + 2; 
+      break;
+    case 9:
+      _output = pow(_firstnumber, 0.5) + pow(_firstnumber, 2);
+      break;
+    }
+    return _output;
 }
 
 //////////////////////FUNCTION DOES MATH/////////////////////////////////////////
