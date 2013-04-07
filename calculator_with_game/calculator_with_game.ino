@@ -103,6 +103,54 @@ void loop()
         mode = 0;
         function = 10; //required for game mode
         lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Direct-");
+        lcd.setCursor(0,1);
+        lcd.print("ions:");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Use A/B");
+        lcd.setCursor(0,1);
+        lcd.print("to pick");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("a level.");
+        lcd.setCursor(0,1);
+        lcd.print("Type a");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("number");
+        lcd.setCursor(0,1);
+        lcd.print("then");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("press");
+        lcd.setCursor(0,1);
+        lcd.print("'D'.");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Guess");
+        lcd.setCursor(0,1);
+        lcd.print("f(x)!");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Each lev");
+        lcd.setCursor(0,1);
+        lcd.print("el has a");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("new");
+        lcd.setCursor(0,1);
+        lcd.print("function");
+        while(kpd.getKey() == NO_KEY) {}
+        lcd.clear();
         displaylevel(level);
        }  
     }
@@ -485,7 +533,7 @@ void scrollline(int delaytime, int line_number, int _length)
       for(int i =0; i<8; i++)
       {
         lcd.setCursor(i,line_number);
-        if(scroll_index+i < _length) {lcd.print(totalarray.charAt(scroll_index+i));}
+        if(scroll_index+i < _length) {lcd.print(totalarray.charAt(scroll_index+i));} else {lcd.print(" "); }
       }
       scroll_index = (scroll_index + 1)%(_length-6);
       lasttime = millis();
