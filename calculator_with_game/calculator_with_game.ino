@@ -93,12 +93,12 @@ void loop()
     char key = kpd.getKey(); // read keypad
     if (key != NO_KEY)
     {
-      if(key == 'A') 
+      if(key == 'A')  //Calculator Mode Selected
       { 
         mode = 1;
         lcd.clear();
       }
-      if(key == 'B') 
+      if(key == 'B') //Game Mode Selected... Display a Set of Instructions
       { 
         mode = 0;
         function = 10; //required for game mode
@@ -168,27 +168,27 @@ void loop()
   char key = kpd.getKey();   // read keypad
   if (key != NO_KEY)
   {
-    if(key == 'A') //increment function
+    if(key == 'A') //increment function in calculator mode
     {
       if(mode) 
       {
         function = mod(++function, number_of_functions);
         displayfunction(function);
       }
-      else  
+      else  //increment level in game mode
       {
-        level = mod(++level, number_of_levels);
+        level = mod(++level, number_of_levels);  
         displaylevel(level);
       }
     }
-    else if(key == 'B') //decrement function
+    else if(key == 'B') //decrement function in calculator mode
     {
       if(mode) 
       {
         function = mod(--function, number_of_functions);
         displayfunction(function);
       }
-      else 
+      else  //decrement level in game mode
       {
         level = mod(--level, number_of_levels);
         displaylevel(level);
@@ -343,16 +343,13 @@ void displayfunction(int _function)
     case 9:
       lcd.print("        ");
       break;
-    case 10:
-      lcd.print("?UGuess?");
-      break;
-    }
+     }
 }
 
 //////////////////////Function Decides Whether Output Has 0, 1, 2, 3, or 4 Decimals AND Prints Output/////////////////
 void printresponse(float _response)
 {
-  if(abs(_response) < 0.0001)  {lcd.print("TooSmall");}
+  if(abs(_response) < 0.0001 && abs(_response) > 0)  {lcd.print("TooSmall");}
   else if(_response > 99999999)  {lcd.print("Too Big ");}
   else if(_response < -9999999) {lcd.print("-Too Big");}
   else
@@ -515,9 +512,6 @@ float executefunction(int _function, float _firstnumber, float _secondnumber)
       _output = tan(_firstnumber); 
       break;
     case 9:
-      break;
-    case 10:
-      _output = _firstnumber * _firstnumber - 1;
       break;
     }
     return _output;
